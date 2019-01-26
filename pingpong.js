@@ -59,10 +59,10 @@ window.onload = function () {
             }
 
             let totalMove = 0;
-            if (id == 87) {
+            if (id == 87 || id == 38) {
                 totalMove ++;
             }
-            if (id == 83) {
+            if (id == 83 || id == 40) {
                 totalMove --;
             }
             setDirection(totalMove);
@@ -104,7 +104,7 @@ function drawNet() {
 }
 
 function drawEverything() {
-    drawRect(0, 0, canvas.width, canvas.height, "rgb(0, 41, 29)");
+    drawRect(0, 0, canvas.width, canvas.height, 'black');
     canvasContext.fillStyle = 'white';
     canvasContext.fillText(player1Score, canvas.width / 4, 100);
     canvasContext.fillText(player2Score, (canvas.width / 4) * 3, 100);
