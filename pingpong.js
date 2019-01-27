@@ -1,36 +1,24 @@
-var canvas; //canvas variables
-var canvasContext;
-var ballX = document.getElementById('pongCanvas').width / 2; //ball pos
-var ballY = document.getElementById('pongCanvas').height / 2; //
-var ballXSpeed = -150; //ball speeds
-var ballYSpeed = 150; //speed is calculated at pixels per second
-var fps = 60; //fps update rate
-var ballWidth = 20; //ball size
-var ballHeight = 20;//
+let canvas; //canvas variables
+let canvasContext;
+let ballX = document.getElementById('pongCanvas').width / 2; //ball pos
+let ballY = document.getElementById('pongCanvas').height / 2; //
+let ballXSpeed = -150; //ball speeds
+let ballYSpeed = 150; //speed is calculated at pixels per second
+const fps = 60; //fps update rate
+const ballWidth = 20; //ball size
+const ballHeight = 20;//
 const PADDLE_HEIGHT = 100;
-var paddle1Y = 20;
-var paddle2Y = 275;
-var paddleWidth = 10;
-var paddleOffset = 5;
-var SPEED = 185;
-var player1Score = 0;
-var player2Score = 0;
-var bounceAngle = 10;
-var lossStreak = 0;
-var showingEnd = false;
-var direction = 0;
-
-
-function calculateMousePos(evt) {
-    var rect = canvas.getBoundingClientRect();
-    var root = document.documentElement;
-    var mouseX = evt.clientX - rect.left - root.scrollLeft;
-    var mouseY = evt.clientY - rect.top - root.scrollTop;
-    return {
-        x: mouseX,
-        y: mouseY
-    }
-}
+let paddle1Y = 20;
+let paddle2Y = 275;
+const paddleWidth = 10;
+const paddleOffset = 5;
+const SPEED = 185;
+let player1Score = 0;
+let player2Score = 0;
+const bounceAngle = 10;
+let lossStreak = 0;
+let showingEnd = false;
+let direction = 0;
 
 
 window.onload = function () {
@@ -52,7 +40,7 @@ window.onload = function () {
 
     document.addEventListener('keydown',
         function (evt) {
-            let id = evt.which || evt.keyCode || evt.key;
+            let id = evt.which || evt.key;
 
             if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].indexOf(id) > -1) { // if id is in list
                 evt.preventDefault(); // stop scroll
@@ -60,35 +48,35 @@ window.onload = function () {
 
             let totalMove = 0;
             if (id == 87 || id == 38) {
-                totalMove ++;
+                totalMove++;
             }
             if (id == 83 || id == 40) {
-                totalMove --;
+                totalMove--;
             }
             setDirection(totalMove);
 
-        })
+        });
     document.addEventListener('keyup',
         function () {
             setDirection(0);
         })
 
-}
+};
 
 function movePaddle() {
     switch (direction) {
         case 1:
-            paddle1Y -= SPEED/fps;
+            paddle1Y -= SPEED / fps;
             break;
 
         case -1:
-            paddle1Y += SPEED/fps;
+            paddle1Y += SPEED / fps;
             break;
     }
-    if(paddle1Y < 0){
+    if (paddle1Y < 0) {
         paddle1Y = 0;
     }
-    if(paddle1Y + PADDLE_HEIGHT > canvas.height) {
+    if (paddle1Y + PADDLE_HEIGHT > canvas.height) {
         paddle1Y = canvas.height - PADDLE_HEIGHT;
     }
 }
@@ -98,7 +86,7 @@ function setDirection(dir) {
 }
 
 function drawNet() {
-    for (var i = 0; i < canvas.height; i += 40) {
+    for (let i = 0; i < canvas.height; i += 40) {
         drawRect(canvas.width / 2 - 1, i, 2, 20, 'white');
     }
 }
@@ -121,13 +109,13 @@ function drawEverything() {
     canvasContext.beginPath();
     canvasContext.arc(ballX, ballY, ballWidth / 2, 0, Math.PI * 2, true);
     canvasContext.fill();
-    drawRect(paddleOffset, paddle1Y, paddleWidth, PADDLE_HEIGHT, 'green')
+    drawRect(paddleOffset, paddle1Y, paddleWidth, PADDLE_HEIGHT, 'green');
     drawRect(canvas.width - paddleOffset - paddleWidth, paddle2Y, paddleWidth, PADDLE_HEIGHT, 'red')
 
 }
 
 function paddle2Ai() {
-    var paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
+    const paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
     if (paddle2YCenter < ballY - 20) {
         paddle2Y += SPEED / fps
     }
@@ -178,8 +166,8 @@ function ballReset() {
 }
 
 function calculateBallPos() {
-    var paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
-    var paddle1YCenter = paddle1Y + PADDLE_HEIGHT / 2;
+    const paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
+    const paddle1YCenter = paddle1Y + PADDLE_HEIGHT / 2;
     if (ballX > canvas.width - 10 - ballWidth / 2) {
         if (ballY > paddle2Y &&
             ballY < paddle2Y + PADDLE_HEIGHT) {
@@ -212,7 +200,7 @@ function calculateBallPos() {
     if (ballY < 0 + ballWidth / 2) {
         ballYSpeed = -ballYSpeed;
     }
-    ballY += ballYSpeed / fps
+    ballY += ballYSpeed / fps;
     ballX += ballXSpeed / fps;
 }
 
