@@ -103,7 +103,7 @@ function drawEverything() {
         return;
     }
 
-//draw circle
+//globalDraw circle
     drawNet();
     canvasContext.fillStyle = 'white';
     canvasContext.beginPath();
